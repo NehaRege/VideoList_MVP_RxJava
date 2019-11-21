@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/vimeoBrandColor</color>
+    <color name="colorPrimaryDark">#2B6A96</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="vimeoBrandColor">#19B7EA</color>
+    <color name="textBlack">#050505</color>
+    <color name="text">#181717</color>
+</resources>

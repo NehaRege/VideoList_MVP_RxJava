@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/NehaRege/Desktop/3. after_pym/Companies/Vimeo/Assignment/BogusCode-Android-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/NehaRege/Desktop/3. after_pym/Companies/Vimeo/Assignment/BogusCode-Android-master/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0_7f1d72195d9350cacce2e5d2120ff9868d46ab2c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/NehaRege/Desktop/3. after_pym/Companies/Vimeo/Assignment/BogusCode-Android-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/NehaRege/Desktop/3. after_pym/Companies/Vimeo/Assignment/BogusCode-Android-master/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-22.2.0_d9bb6282d8f635565472878a54821b9411a54c43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/NehaRege/Desktop/3. after_pym/Companies/Vimeo/Assignment/BogusCode-Android-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/NehaRege/Desktop/3. after_pym/Companies/Vimeo/Assignment/BogusCode-Android-master/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-22.2.0_bf445242f9e8182656f6242dd88b8405c2032531.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/NehaRege/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/NehaRege/Desktop/3. after_pym/Companies/Vimeo/Assignment/BogusCode-Android-master/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0_5bf3cc9f2554be16b8402174a3c4ca8f2d9fb3e8.jar" />
+    </item>
+
+</items>

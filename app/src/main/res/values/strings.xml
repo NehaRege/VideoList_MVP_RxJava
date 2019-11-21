@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BogusCode</string>
+
+    <string name="activity_main_title">Vimeo Staff Picks</string>
+    <string name="video_list_title">All the videos have been hand picked by our staff…</string>
+    <string name="video_click_toast_message">Item number %d has been selected</string>
+
+    <!--    Network Error   -->
+    <string name="network_error_title">UNABLE TO LOAD</string>
+    <string name="network_error_subtitle">Please tap here to try again.</string>
+</resources>
+
