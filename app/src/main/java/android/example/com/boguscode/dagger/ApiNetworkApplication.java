@@ -2,7 +2,7 @@
 //
 //import android.app.Activity;
 //import android.app.Application;
-//import android.example.com.boguscode.Constants;
+//import android.example.com.boguscode.utils.Constants;
 //import android.example.com.boguscode.api.ApiNetworkService;
 //
 //import org.jetbrains.annotations.NotNull;

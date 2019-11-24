@@ -1,4 +1,4 @@
-package android.example.com.boguscode;
+package android.example.com.boguscode.utils;
 
 public class Constants {
     public static final String VIMEO_BASE_URL = "https://api.vimeo.com";

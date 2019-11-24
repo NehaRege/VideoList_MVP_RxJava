@@ -1,6 +1,6 @@
 package android.example.com.boguscode.api;
 
-import android.example.com.boguscode.Constants;
+import android.example.com.boguscode.utils.Constants;
 
 import org.jetbrains.annotations.NotNull;
 

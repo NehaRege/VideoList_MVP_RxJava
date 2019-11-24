@@ -34,22 +34,22 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             videoName = (TextView) itemView.findViewById(R.id.videoNameTextView);
             artistName = (TextView) itemView.findViewById(R.id.artistTextView);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onItemClickListener.onItemClick(getLayoutPosition());
-//                }
-//            });
-        }
-
-        public void click(final OnRecyclerViewItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(getLayoutPosition());
+                    onItemClickListener.onItemClick(getLayoutPosition());
                 }
             });
         }
+
+//        public void click(final OnRecyclerViewItemClickListener listener) {
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    listener.onItemClick(getLayoutPosition());
+//                }
+//            });
+//        }
     }
 
     public VideoAdapter(List<JSONObject> videoList, OnRecyclerViewItemClickListener listener) {

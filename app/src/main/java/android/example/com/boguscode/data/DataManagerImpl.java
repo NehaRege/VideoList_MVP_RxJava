@@ -1,6 +1,6 @@
 package android.example.com.boguscode.data;
 
-import android.example.com.boguscode.Constants;
+import android.example.com.boguscode.utils.Constants;
 import android.example.com.boguscode.api.ApiNetworkService;
 import android.example.com.boguscode.api.NetworkClient;
 import android.example.com.boguscode.presenter.MainPresenter;
