@@ -1,7 +1,7 @@
 //package android.example.com.boguscode.dagger.module.app;
 //
 //import android.example.com.boguscode.dagger.scope.ActivityScope;
-//import android.example.com.boguscode.data.DataManagerImpl;
+//import android.example.com.boguscode.data.dataManager.DataManagerImpl;
 //import android.example.com.boguscode.presenter.MainPresenterImpl;
 //import android.example.com.boguscode.view.MainView;
 //

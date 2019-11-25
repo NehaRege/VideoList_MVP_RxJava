@@ -1,9 +1,14 @@
 package android.example.com.boguscode.view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.example.com.boguscode.R;
 import android.example.com.boguscode.VideoAdapter;
 import android.example.com.boguscode.presenter.MainPresenter;
 import android.example.com.boguscode.presenter.MainPresenterImpl;
+import android.example.com.boguscode.utils.Constants;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements VideoAdapter.OnRe
     private VideoAdapter mVideoAdapter;
 
     private MainPresenter mMainPresenter;
+    private SharedPreferences mSharedPreferences;
+    private NetworkInfo mNetworkInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +113,20 @@ public class MainActivity extends AppCompatActivity implements VideoAdapter.OnRe
     }
 
     private void setUpMVP() {
-        mMainPresenter = new MainPresenterImpl(this);
+        initNetworkInfo();
+        initSharedPreferences();
+
+        mMainPresenter = new MainPresenterImpl(this, mNetworkInfo, mSharedPreferences);
+    }
+
+    private void initSharedPreferences() {
+        mSharedPreferences = getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCES_KEY, 0); // 0 - for private mode
+    }
+
+    private void initNetworkInfo() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        mNetworkInfo = connectivityManager.getActiveNetworkInfo();
     }
 
     private void getVideoList() {

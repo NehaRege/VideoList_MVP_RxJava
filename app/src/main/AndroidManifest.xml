@@ -3,6 +3,9 @@
     package="android.example.com.boguscode">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--    this is to check network status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="true"

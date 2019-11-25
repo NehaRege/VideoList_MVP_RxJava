@@ -1,9 +1,14 @@
-package android.example.com.boguscode.data;
+package android.example.com.boguscode.data.dataManager;
 
+import android.content.SharedPreferences;
+import android.example.com.boguscode.data.dataSource.local.LocalDataSource;
+import android.example.com.boguscode.data.dataSource.local.LocalDataSourceImpl;
+import android.example.com.boguscode.data.dataSource.remote.RemoteDataSource;
+import android.example.com.boguscode.data.dataSource.remote.RemoteDataSourceImpl;
 import android.example.com.boguscode.utils.Constants;
 import android.example.com.boguscode.api.ApiNetworkService;
 import android.example.com.boguscode.api.NetworkClient;
-import android.example.com.boguscode.presenter.MainPresenter;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -20,12 +25,20 @@ import okhttp3.ResponseBody;
 public class DataManagerImpl implements DataManager {
     private static String TAG = "DataManagerImpl";
 
-    private MainPresenter mPresenter;
-
     private ArrayList<JSONObject> mVideosFromRetrofit = new ArrayList<>();
 
-    public DataManagerImpl(MainPresenter presenter) {
-        mPresenter = presenter;
+    private RemoteDataSource remoteDataSource;
+    private LocalDataSource localDataSource;
+
+    private NetworkInfo networkInfo;
+
+    private ResponseBody videoListData;
+
+
+    public DataManagerImpl(NetworkInfo networkInfo, SharedPreferences sharedPreferences) {
+        this.networkInfo = networkInfo;
+        remoteDataSource = new RemoteDataSourceImpl();
+        localDataSource = new LocalDataSourceImpl(sharedPreferences);
     }
 
     @Override
@@ -35,12 +48,40 @@ public class DataManagerImpl implements DataManager {
 //        getObservable().subscribeWith(getObserver());
     }
 
+    @Override
+    public Observable<ResponseBody> getVideoList_FromDataSource() {
+        if (isNetworkAvailable()) {
+            return remoteDataSource.getVideoListFromRemoteSource();
+        } else {
+            videoListData = localDataSource.getVideoListFromLocalSource();
+
+            Log.d(TAG, "getVideoList_FromDataSource: video data list from local source ---------------> "+videoListData);
+            return getObservable_localSource()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+        }
+    }
+
+    @Override
+    public void saveVideoListData(ResponseBody videoListData) {
+        Log.d(TAG, "saveVideoListData: ");
+        localDataSource.saveVideoListToSharedPrefs(videoListData);
+    }
+
+    private Observable<ResponseBody> getObservable_localSource() {
+        return Observable.just(videoListData);
+    }
+
     public Observable<ResponseBody> getObservable() {
         return NetworkClient.getRetrofit()
                 .create(ApiNetworkService.class)
                 .getVideoList(Constants.API_TOKEN)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private Boolean isNetworkAvailable() {
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 
     /**
