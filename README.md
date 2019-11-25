@@ -8,7 +8,7 @@ Features
 * Uses Glide library for image loading
 * Retrofit for networking
 * RxJava for reactive programming
-* Handles caching for offline 
+* Handles caching for offline support
 * Displays an error view on network failure
 * RecyclerView for displaying list data
 * Basic Dagger setup (in progress)
