@@ -1,8 +1,10 @@
 package android.example.com.boguscode.presenter;
 
-import android.example.com.boguscode.data.DataManager;
-import android.example.com.boguscode.data.DataManagerImpl;
+import android.content.SharedPreferences;
+import android.example.com.boguscode.data.dataManager.DataManager;
+import android.example.com.boguscode.data.dataManager.DataManagerImpl;
 import android.example.com.boguscode.view.MainView;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -23,29 +25,19 @@ public class MainPresenterImpl implements MainPresenter {
     private DataManager mDataManager;
 
     private Observable<ResponseBody> observable;
-    private ArrayList<JSONObject> mVideosFromRetrofit = new ArrayList<>();
+    private ArrayList<JSONObject> mVideoListData = new ArrayList<>();
     private final PublishSubject<Object> retrySubject = PublishSubject.create();
 
-    public MainPresenterImpl(MainView mainView) {
+    public MainPresenterImpl(MainView mainView, NetworkInfo networkInfo, SharedPreferences sharedPreferences) {
         mMainView = mainView;
-        mDataManager = new DataManagerImpl(this);
-    }
-
-    /**
-     *
-     * This is for Dagger
-     *
-     * @param mainView
-     * @param dataManager
-     */
-    public MainPresenterImpl(MainView mainView, DataManager dataManager) {
-        mMainView = mainView;
-        mDataManager = dataManager;
+        mDataManager = new DataManagerImpl(networkInfo, sharedPreferences);
     }
 
     @Override
     public void getVideoList() {
         observable = mDataManager.getVideoList();
+
+//        observable = mDataManager.getVideoList_FromDataSource();
 
 //        .retryWhen(observable -> observable.zipWith(retrySubject, (o, o2) -> o))
 //        .retryWhen(retryHandler ->
@@ -63,13 +55,15 @@ public class MainPresenterImpl implements MainPresenter {
             public void onNext(ResponseBody responseBody) {
                 Log.d(TAG, "onNext: response body = " + responseBody);
                 try {
+                    mDataManager.saveVideoListData(responseBody);
+
                     String result = responseBody.string();
                     JSONObject object = new JSONObject(result);
                     JSONArray data = object.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
-                        mVideosFromRetrofit.add(data.getJSONObject(i));
+                        mVideoListData.add(data.getJSONObject(i));
                     }
-                    Log.d(TAG, "onNext: response body list size = " + mVideosFromRetrofit.size());
+                    Log.d(TAG, "onNext: response body list size = " + mVideoListData.size());
 
                     showListData();
 
@@ -105,8 +99,8 @@ public class MainPresenterImpl implements MainPresenter {
         mMainView.showProgressBar();
 
         getVideoList();
-        retrySubject.onNext(new Object());
 
+//        retrySubject.onNext(new Object());
 //        retrySubject.onNext(true);
 //        getVideoList();
     }
@@ -115,7 +109,7 @@ public class MainPresenterImpl implements MainPresenter {
         mMainView.hideErrorViewCard();
         mMainView.hideProgressBar();
         mMainView.showVideoListView();
-        mMainView.setData(mVideosFromRetrofit);
+        mMainView.setData(mVideoListData);
     }
 
     private void showErrorView() {
@@ -123,6 +117,4 @@ public class MainPresenterImpl implements MainPresenter {
         mMainView.hideVideoListView();
         mMainView.showErrorViewCard();
     }
-
-
 }

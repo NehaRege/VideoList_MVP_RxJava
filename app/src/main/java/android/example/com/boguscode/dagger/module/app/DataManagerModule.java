@@ -2,7 +2,7 @@
 //
 //import android.example.com.boguscode.dagger.ApiNetworkApplication;
 //import android.example.com.boguscode.dagger.scope.ActivityScope;
-//import android.example.com.boguscode.data.DataManagerImpl;
+//import android.example.com.boguscode.data.dataManager.DataManagerImpl;
 //import android.example.com.boguscode.presenter.MainPresenter;
 //
 //import dagger.Module;
