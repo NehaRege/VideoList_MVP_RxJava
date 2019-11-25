@@ -1,8 +1,5 @@
 package android.example.com.boguscode;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
@@ -77,9 +75,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             e.printStackTrace();
         }
 
-        if (uri != null) {
-            new VideoAdapter.DownloadImageTask(holder.videoThumbNail).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
-        }
+        Glide.with(holder.itemView)
+                .load(uri)
+                .centerCrop()
+//                .placeholder(R.drawable.ic_image_place_holder)
+//                .error(R.drawable.ic_broken_image)
+//                .fallback(R.drawable.ic_no_image)
+                .into(holder.videoThumbNail);
+
         holder.videoName.setText(video.optString("name", ""));
         holder.artistName.setText(video.optJSONObject("user").optString("name", ""));
     }
@@ -87,32 +90,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public int getItemCount() {
         return mVideoList.size();
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                bitmap = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            if (result != null) {
-                bmImage.setImageBitmap(result);
-            }
-        }
     }
 }
 
